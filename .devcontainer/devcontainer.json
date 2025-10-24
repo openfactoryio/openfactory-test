@@ -1,0 +1,23 @@
+{
+  "name": "OpenFactory-Test — Minimal Dev Container to test OpenFactory release",
+  "image": "mcr.microsoft.com/devcontainers/python:2.0.2-3.13-bullseye",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2.12.4": {},
+    "ghcr.io/openfactoryio/openfactory-sdk/infra:0.4.4": {},
+    "ghcr.io/openfactoryio/openfactory-sdk/opcua-connector:0.4.4": {}
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  },
+  "containerEnv": {
+    "OPENFACTORY_UNS_SCHEMA": "/workspaces/openfactory-test/ressources/uns.yml"
+  }
+}
