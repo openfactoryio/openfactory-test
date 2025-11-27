@@ -3,8 +3,8 @@
   "image": "mcr.microsoft.com/devcontainers/python:2.0.2-3.13-bullseye",
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2.12.4": {},
-    "ghcr.io/openfactoryio/openfactory-sdk/infra:0.4.5": {},
-    "ghcr.io/openfactoryio/openfactory-sdk/opcua-connector:0.4.5": {}
+    "ghcr.io/openfactoryio/openfactory-sdk/infra:0.4.6": {},
+    "ghcr.io/openfactoryio/openfactory-sdk/opcua-connector:0.4.6": {}
   },
   "customizations": {
     "vscode": {
