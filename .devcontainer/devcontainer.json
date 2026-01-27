@@ -3,8 +3,8 @@
   "image": "ghcr.io/openfactoryio/devcontainer",
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2.14.0": {},
-    "ghcr.io/openfactoryio/openfactory-sdk/infra:0.4.7": {},
-    "ghcr.io/openfactoryio/openfactory-sdk/opcua-connector:0.4.7": {}
+    "ghcr.io/openfactoryio/openfactory-sdk/infra:0.4.8": {},
+    "ghcr.io/openfactoryio/openfactory-sdk/opcua-connector:0.4.8": {}
   },
   "customizations": {
     "vscode": {
