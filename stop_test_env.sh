@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Remove assets
+./tests/teardown_assets.sh
+
 # Remove virtual NFS server
 echo "🛑 Removing virtual NFS server"
 docker rm -f devcontainer-nfs
