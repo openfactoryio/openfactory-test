@@ -18,6 +18,7 @@ class DemoApp(OpenFactoryApp):
         # Not absolutely required as it is already done by the `KSQLDBClient` class
         self.ksql.close()
 
+
 app = DemoApp(
     ksqlClient=KSQLDBClient(os.getenv("KSQLDB_URL", "http://localhost:8088")),
     bootstrap_servers=os.getenv("KAFKA_BROKER", "localhost:9092"),

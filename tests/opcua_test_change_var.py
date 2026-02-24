@@ -22,9 +22,11 @@ time.sleep(0.1)
 
 print(asset.temp_unit)
 
+
 def on_sample(msg_key, msg_value):
     print(msg_key, msg_value['VALUE'])
     print(msg_value)
+
 
 asset.subscribe_to_attribute('temp', on_sample)
 
