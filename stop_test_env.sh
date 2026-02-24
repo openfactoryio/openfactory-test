@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Remove virtual NFS server
+echo "🛑 Removing virtual NFS server"
+docker rm -f devcontainer-nfs
+docker volume rm devcontainer-nfsdata
+
 # Remove OPC UA connectors
 docker compose -f /usr/local/share/openfactory-opcua/docker-compose.yml down
 
@@ -8,6 +13,4 @@ docker compose -f /usr/local/share/openfactory-opcua/docker-compose.yml down
 
 # Remove virtual devices
 echo "🛑 Removing virtual sensors"
-docker stop virtual-opcua-sensor
-docker stop virtual-opcua-barcode-reader
-docker rm virtual-opcua-sensor virtual-opcua-barcode-reader
+docker rm -f virtual-opcua-sensor virtual-opcua-barcode-reader

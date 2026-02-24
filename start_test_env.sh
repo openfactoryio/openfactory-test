@@ -10,3 +10,11 @@ docker run -d -p 4841:4840 --name virtual-opcua-barcode-reader ghcr.io/openfacto
 
 # Setup OPC UA connectors
 docker compose -f /usr/local/share/openfactory-opcua/docker-compose.yml up -d
+
+# Build demo-app
+cd ressources/apps/demo
+docker build --build-arg OFA_VERSION="v$(ofa version)" -t demo-app -f Dockerfile .
+cd /workspaces/openfactory-test
+
+# Setup virtual NFS server
+./ressources/setup_nfs_server.sh

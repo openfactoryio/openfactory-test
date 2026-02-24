@@ -1,0 +1,40 @@
+# ---------------------------------------------------------------------------------------
+# 🏭 OpenFactory configuration file for Fusion-App 
+# ---------------------------------------------------------------------------------------
+# Environment variables:
+#
+# Required:
+#   NFS_SERVER               nfs server for storage
+#
+# Optional:
+#   DEMO_APP_LOG_LEVEL       Log level (default: INFO)
+#
+# ---------------------------------------------------------------------------------------
+
+apps:
+
+  demo-app:
+    uuid: DEMO-APP
+    image: demo-app
+    storage:
+      type: nfs
+      server: ${CONTAINER_IP}
+      remote_path: /home/ofa/nfsvolume
+      mount_point: /mnt
+      mount_options:
+        - rw
+    environment:
+      - LOG_LEVEL=${DEMO_APP_LOG_LEVEL:-DEBUG}
+    networks:
+      - factory-net
+
+    deploy:
+      replicas: 1
+
+      resources:
+        reservations:
+          cpus: 0.25
+          memory: "512Mi"
+        limits:
+          cpus: 0.5
+          memory: "1Gi"
