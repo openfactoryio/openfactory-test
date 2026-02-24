@@ -1,0 +1,14 @@
+# -----------------------------------------------------------------------------
+# 🐳 Docker Compose file for DEMO-APP
+# -----------------------------------------------------------------------------
+
+services:
+  demo-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        OFA_VERSION: ${OFA_VERSION}
+    image: demo-app
+    container_name: demo-app
+    restart: unless-stopped
