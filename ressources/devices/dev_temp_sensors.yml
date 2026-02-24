@@ -16,6 +16,10 @@ devices:
 
       server:
         uri: opc.tcp://${CONTAINER_IP}:4840
+        subscription:                       # Server-level defaults
+          publishing_interval: 10           # ms, for subscription object
+          queue_size: 1                     # default per monitored item
+          sampling_interval: 0              # ms, 0 = event-driven if supported
 
       variables:
         temp:
