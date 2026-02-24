@@ -31,7 +31,6 @@ class TestLatency(TestCase):
         sample_received = threading.Event()
 
         def on_sample(msg_subject, msg_value):
-            nonlocal latencies
 
             msg_ts = msg_value['attributes']['timestamp']
             msg_time = datetime.fromisoformat(msg_ts.replace('Z', '+00:00'))
@@ -55,7 +54,7 @@ class TestLatency(TestCase):
         )
 
         # Convert to milliseconds
-        latencies_ms = [l * 1000 for l in latencies]
+        latencies_ms = [la * 1000 for la in latencies]
 
         max_latency = max(latencies_ms)
 

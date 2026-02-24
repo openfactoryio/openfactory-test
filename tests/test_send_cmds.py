@@ -20,11 +20,11 @@ class TestSendCmds(TestCase):
             'OPCUA-SENSOR-001',
             ksqlClient=cls.ksql,
             bootstrap_servers=os.getenv("KAFKA_BROKER"))
-        
+
         cls.barcode_reader = Asset(
             'VIRTUAL-BARCODE-READER',
-             ksqlClient=cls.ksql,
-             bootstrap_servers=os.getenv("KAFKA_BROKER"))
+            ksqlClient=cls.ksql,
+            bootstrap_servers=os.getenv("KAFKA_BROKER"))
 
     @classmethod
     def tearDownClass(cls):
