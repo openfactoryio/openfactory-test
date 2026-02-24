@@ -1,3 +1,4 @@
+import os
 import time
 import openfactory.config as config
 from openfactory import OpenFactory
@@ -8,7 +9,10 @@ from openfactory.kafka import KSQLDBClient
 ksql = KSQLDBClient(config.KSQLDB_URL)
 ofa = OpenFactory(ksqlClient=KSQLDBClient(config.KSQLDB_URL))
 
-asset = Asset('OPCUA-SENSOR-001', ksqlClient=ksql)
+asset = Asset(
+    'OPCUA-SENSOR-001',
+    ksqlClient=ksql,
+    bootstrap_servers=os.getenv("KAFKA_BROKER"))
 
 print(asset.temp)
 print(asset.temp_unit)
