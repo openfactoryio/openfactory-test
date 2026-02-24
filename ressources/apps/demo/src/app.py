@@ -15,13 +15,12 @@ class DemoApp(OpenFactoryApp):
             time.sleep(2)
 
     def app_event_loop_stopped(self):
-        # Not absolutely required as it is already done by the `KSQLDBClient` class
         self.ksql.close()
 
 
 app = DemoApp(
-    ksqlClient=KSQLDBClient(os.getenv("KSQLDB_URL", "http://localhost:8088")),
-    bootstrap_servers=os.getenv("KAFKA_BROKER", "localhost:9092"),
-    loglevel=os.getenv("LOG_LEVEL", "INFO")
+    ksqlClient=KSQLDBClient(os.getenv("KSQLDB_URL")),
+    bootstrap_servers=os.getenv("KAFKA_BROKER"),
+    loglevel=os.getenv("LOG_LEVEL")
 )
 app.run()
