@@ -1,4 +1,4 @@
-# openfactory-test
+# Openfactory-Test
 Minimal repo to verify if a release was succesfull
 
 ## Deploy OpenFactory
@@ -11,7 +11,7 @@ Minimal repo to verify if a release was succesfull
 ./tests/deploy_assets.sh
 ```
 
-## Subscribe to a deployed asset
+## Run tests
 ```bash
-python ./tests/subscribe_to_assets.py
+pytest tests
 ```
