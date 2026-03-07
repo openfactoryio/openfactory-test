@@ -5,9 +5,9 @@ from openfactory.kafka import KSQLDBClient
 from openfactory.assets import Asset
 
 
-class TestSendCmds(TestCase):
+class TestSetAttributes(TestCase):
     """
-    Tests related to send OpenFactory commands to Assets
+    Tests related to set attributes in OpenFactory Assets
     """
 
     @classmethod
