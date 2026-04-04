@@ -2,8 +2,8 @@
 
 # Add some virtual sensors
 echo "🚀 Deploying virtual sensors"
-docker run -d --name virtual-opcua-sensor -p 4840:4840 -e NUM_SENSORS=2 ghcr.io/openfactoryio/virtual-opcua-sensor
-docker run -d -p 4841:4840 --name virtual-opcua-barcode-reader ghcr.io/openfactoryio/virtual-opcua-barcode-reader
+docker run -d --name virtual-opcua-sensor -p 4840:4840 -e NUM_SENSORS=2 ghcr.io/openfactoryio/virtual-opcua-sensor:v$OPENFACTORY_VERSION
+docker run -d -p 4841:4840 --name virtual-opcua-barcode-reader ghcr.io/openfactoryio/virtual-opcua-barcode-reader:v$OPENFACTORY_VERSION
 
 # Setup infrastructure
 /usr/local/bin/spinup.sh
