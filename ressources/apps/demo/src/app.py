@@ -1,12 +1,17 @@
 import time
 import os
 from typing import Annotated
-from openfactory.apps import OpenFactoryApp, ofa_method
+from openfactory.apps import OpenFactoryApp, SampleAttribute, EventAttribute, ofa_method
 from openfactory.kafka import KSQLDBClient
-from openfactory.assets import Asset, AssetAttribute
+from openfactory.assets import Asset
 
 
 class DemoApp(OpenFactoryApp):
+
+    x = SampleAttribute(value=0, tag="Position")
+    y = SampleAttribute(value=0, tag="Position")
+    speed = SampleAttribute(value=0, tag="FeedRate")
+    barcode = EventAttribute(tag="Barcode")
 
     def __init__(self,
                  ksqlClient: KSQLDBClient,
@@ -14,40 +19,6 @@ class DemoApp(OpenFactoryApp):
         """ Constructor """
         super().__init__(ksqlClient=ksqlClient,
                          loglevel=loglevel)
-
-        # add some attributes for tests
-        self.add_attribute(
-            asset_attribute=AssetAttribute(
-                id='x',
-                value=0,
-                type='Samples',
-                tag='Position'
-            )
-        )
-        self.add_attribute(
-            asset_attribute=AssetAttribute(
-                id='y',
-                value=0,
-                type='Samples',
-                tag='Position'
-            )
-        )
-        self.add_attribute(
-            asset_attribute=AssetAttribute(
-                id='speed',
-                value=0,
-                type='Samples',
-                tag='FeedRate'
-            )
-        )
-        self.add_attribute(
-            asset_attribute=AssetAttribute(
-                id='barcode',
-                value='UNAVAILABLE',
-                type='Events',
-                tag='Barcode'
-            )
-        )
 
         # subscribe to another Asset
         barcode_reader = Asset('VIRTUAL-BARCODE-READER', ksqlClient=ksqlClient)
