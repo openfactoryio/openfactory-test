@@ -10,11 +10,9 @@ class DemoApp(OpenFactoryApp):
 
     def __init__(self,
                  ksqlClient: KSQLDBClient,
-                 bootstrap_servers: str,
                  loglevel: str):
         """ Constructor """
         super().__init__(ksqlClient=ksqlClient,
-                         bootstrap_servers=bootstrap_servers,
                          loglevel=loglevel)
 
         # add some attributes for tests
@@ -52,10 +50,7 @@ class DemoApp(OpenFactoryApp):
         )
 
         # subscribe to another Asset
-        barcode_reader = Asset(
-            'VIRTUAL-BARCODE-READER',
-            ksqlClient=ksqlClient,
-            bootstrap_servers=bootstrap_servers)
+        barcode_reader = Asset('VIRTUAL-BARCODE-READER', ksqlClient=ksqlClient)
         barcode_reader.subscribe_to_attribute('last_code', self.on_new_barcode)
 
     @ofa_method(description="Move to a given (x, y) position with speed")
@@ -94,7 +89,6 @@ class DemoApp(OpenFactoryApp):
 
 app = DemoApp(
     ksqlClient=KSQLDBClient(os.getenv("KSQLDB_URL")),
-    bootstrap_servers=os.getenv("KAFKA_BROKER"),
     loglevel=os.getenv("LOG_LEVEL")
 )
 app.run()
