@@ -1,5 +1,5 @@
 {
-  "name": "OpenFactory-Test \u2014 Minimal Dev Container to test OpenFactory release",
+  "name": "OpenFactory-Test - Minimal Dev Container to test OpenFactory release",
   "image": "ghcr.io/openfactoryio/devcontainer",
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2.16.1": {},
