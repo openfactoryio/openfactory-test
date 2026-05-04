@@ -127,22 +127,6 @@ def bump_devcontainer_version(version: str) -> None:
         if old != new:
             print(f"[devcontainer.json] feature updated: {old} → {new}")
 
-    if "containerEnv" not in data or "OPENFACTORY_VERSION" not in data["containerEnv"]:
-        print("ERROR: OPENFACTORY_VERSION not found in devcontainer.json.")
-        sys.exit(1)
-
-    old_default = data["containerEnv"]["OPENFACTORY_VERSION"]
-
-    if version == "dev":
-        base_version = old_default.split("-")[0]
-        new_default = f"{base_version}-dev.1"
-    else:
-        new_default = f"v{version}"
-
-    data["containerEnv"]["OPENFACTORY_VERSION"] = new_default
-
-    print(f"[devcontainer.json] OPENFACTORY_VERSION updated: {old_default} → {new_default}")
-
     with json_path.open("w", encoding="utf-8") as f:
         json.dump(data, f, indent=2)
         f.write("\n")
