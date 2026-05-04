@@ -3,8 +3,8 @@
   "image": "ghcr.io/openfactoryio/devcontainer",
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2.16.1": {},
-    "ghcr.io/openfactoryio/openfactory-sdk/infra:0.5.4-rc.3": {},
-    "ghcr.io/openfactoryio/openfactory-sdk/opcua-connector:0.5.4-rc.3": {}
+    "ghcr.io/openfactoryio/openfactory-sdk/infra:0.5.4-rc.4": {},
+    "ghcr.io/openfactoryio/openfactory-sdk/opcua-connector:0.5.4-rc.4": {}
   },
   "customizations": {
     "vscode": {
@@ -28,7 +28,7 @@
   },
   "containerEnv": {
     "OPENFACTORY_UNS_SCHEMA": "/workspaces/openfactory-test/ressources/uns.yml",
-    "OPENFACTORY_VERSION": "0.5.4rc3"
+    "OPENFACTORY_VERSION": "0.5.4rc4"
   },
   "postCreateCommand": ".devcontainer/postStartScript.sh"
 }
