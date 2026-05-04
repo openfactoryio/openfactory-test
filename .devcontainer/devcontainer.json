@@ -28,7 +28,7 @@
   },
   "containerEnv": {
     "OPENFACTORY_UNS_SCHEMA": "/workspaces/openfactory-test/ressources/uns.yml",
-    "OPENFACTORY_VERSION": "0.5.4rc4"
+    "OPENFACTORY_VERSION": "v0.5.4rc4"
   },
   "postCreateCommand": ".devcontainer/postStartScript.sh"
 }
