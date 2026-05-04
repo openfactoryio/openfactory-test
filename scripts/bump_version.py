@@ -137,7 +137,7 @@ def bump_devcontainer_version(version: str) -> None:
         base_version = old_default.split("-")[0]
         new_default = f"{base_version}-dev.1"
     else:
-        new_default = version
+        new_default = f"v{version}"
 
     data["containerEnv"]["OPENFACTORY_VERSION"] = new_default
 
