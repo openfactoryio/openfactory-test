@@ -1,11 +1,11 @@
 """
-Bump OpenFactory versions in `.devcontainer/devcontainer.json`.
+Bump OpenFactory versions across project configuration files.
 
 This script updates:
 
-1. The version tags of OpenFactory features in `features`
-   (e.g., infra and opcua-connector images)
-2. The `OPENFACTORY_VERSION` variable in `containerEnv`
+1. The project version in `pyproject.toml`
+2. The OpenFactory core Git dependency in `pyproject.toml`
+3. The version tags of OpenFactory features in `.devcontainer/devcontainer.json`
 
 Usage:
     python scripts/bump_version.py <new_version>
@@ -15,26 +15,30 @@ Arguments:
 
 Behavior:
 - If <new_version> is a version string:
+    • Sets the project version in `pyproject.toml`
+    • Updates the OpenFactory Git dependency to match the version (e.g., @v0.5.4rc2)
     • Updates OpenFactory feature image tags using semver format
       (e.g., 0.5.4rc2 → 0.5.4-rc.2)
-    • Sets OPENFACTORY_VERSION using the original version string (PEP 440)
 
 - If <new_version> is "dev":
+    • Transforms the current project version to "<base>-dev.1"
+    • Updates the OpenFactory Git dependency to match the derived version
     • Sets feature image tags to "dev"
-    • Transforms OPENFACTORY_VERSION to "<base>-dev.1"
 
 Notes:
-    - Only features under `ghcr.io/openfactoryio/openfactory-sdk/` are modified
+    - Only dependencies pointing to the OpenFactory core Git repository are modified
+    - Only features under `ghcr.io/openfactoryio/openfactory-sdk/` are updated
     - Will exit with an error if required fields are missing
 
 Dependency:
-    - None
+    - tomlkit
 """
 
 from pathlib import Path
 import sys
 import json
 import re
+from tomlkit import parse, dumps
 
 
 def pep440_to_semver(version: str) -> str:
@@ -74,6 +78,94 @@ def pep440_to_semver(version: str) -> str:
     # No change
     print(f"[normalize] {version_original} → {version_original} (no change)")
     return version_original
+
+
+def update_openfactory_dependency(toml_doc, version: str) -> None:
+    """
+    Update the OpenFactory Git dependency in pyproject.toml.
+
+    This function ensures that the OpenFactory core dependency remains
+    aligned with the project version by updating its Git reference tag.
+
+    Specifically, it searches for dependencies matching the OpenFactory
+    core repository and replaces the version suffix with the provided
+    version string, prefixed with "v".
+
+    Example:
+        "OpenFactory @ git+https://github.com/openfactoryio/openfactory-core.git@v0.5.4rc4"
+        → "OpenFactory @ git+https://github.com/openfactoryio/openfactory-core.git@v0.5.5rc1"
+
+    Args:
+        toml_doc: Parsed pyproject.toml document (tomlkit object).
+        version (str): The target version string (PEP 440 format).
+
+    Returns:
+        None
+
+    Notes:
+        - Only dependencies pointing to the OpenFactory core Git repository are modified
+        - Other dependencies are left unchanged
+    """
+    deps = toml_doc["project"].get("dependencies", [])
+
+    new_deps = []
+    pattern = r"^OpenFactory\s*@\s*git\+.*openfactory-core\.git@.*$"
+
+    for dep in deps:
+        if re.match(pattern, dep):
+            new_dep = f"OpenFactory @ git+https://github.com/openfactoryio/openfactory-core.git@v{version}"
+            print(f"[pyproject.toml] dependency updated: {dep} → {new_dep}")
+            new_deps.append(new_dep)
+        else:
+            new_deps.append(dep)
+
+    toml_doc["project"]["dependencies"] = new_deps
+
+
+def bump_pyproject_version(version: str) -> None:
+    """
+    Update the version in pyproject.toml.
+
+    If the version is "dev", it transforms the current version to "<base>-dev.1".
+    Otherwise, sets the version to the provided semantic version.
+
+    Args:
+        version (str): The new version string, e.g., "0.4.0" or the special keyword "dev".
+
+    Returns:
+        str: The final version string written to pyproject.toml
+
+    Raises:
+        SystemExit: If the pyproject.toml file is missing or malformed.
+    """
+    pyproject_path = Path(__file__).resolve().parent.parent / "pyproject.toml"
+
+    if not pyproject_path.exists():
+        print("ERROR: pyproject.toml not found.")
+        sys.exit(1)
+
+    with pyproject_path.open("r", encoding="utf-8") as f:
+        toml_doc = parse(f.read())
+
+    if "project" not in toml_doc or "version" not in toml_doc["project"]:
+        print("ERROR: [project] section or version field not found.")
+        sys.exit(1)
+
+    old_version = toml_doc["project"]["version"]
+
+    if version == "dev":
+        base_version = old_version.split("-")[0]
+        new_version = f"{base_version}-dev.1"
+    else:
+        new_version = version
+
+    toml_doc["project"]["version"] = new_version
+    update_openfactory_dependency(toml_doc, new_version)
+
+    with pyproject_path.open("w", encoding="utf-8") as f:
+        f.write(dumps(toml_doc))
+
+    print(f"[pyproject.toml] Version updated: {old_version} → {new_version}")
 
 
 def bump_devcontainer_version(version: str) -> None:
@@ -138,4 +230,5 @@ if __name__ == "__main__":
         sys.exit(1)
 
     new_version = sys.argv[1]
+    bump_pyproject_version(new_version)
     bump_devcontainer_version(new_version)
