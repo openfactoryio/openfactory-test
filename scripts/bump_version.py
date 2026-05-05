@@ -168,13 +168,63 @@ def bump_pyproject_version(version: str) -> None:
     print(f"[pyproject.toml] Version updated: {old_version} → {new_version}")
 
 
+def update_devcontainer_image(data: dict, version: str) -> None:
+    """
+    Update the base image version in devcontainer.json.
+
+    This function ensures that the devcontainer base image remains aligned
+    with the project version by updating its tag.
+
+    The image tag uses the original PEP 440 version string, prefixed with "v",
+    unlike devcontainer features which use semver format.
+
+    Example:
+        "ghcr.io/openfactoryio/devcontainer-py3.14:v0.5.4rc4"
+        → "ghcr.io/openfactoryio/devcontainer-py3.14:v0.5.5rc1"
+
+    Args:
+        data (dict): Parsed devcontainer.json content.
+        version (str): The target version string (PEP 440 format).
+
+    Returns:
+        None
+
+    Notes:
+        - Only updates the "image" field if present
+        - Preserves the original image name and replaces only the tag
+    """
+    if "image" not in data:
+        return
+
+    old_image = data["image"]
+
+    if version == "dev":
+        new_tag = "dev"
+    else:
+        new_tag = f"v{version}"
+
+    base_image, _, _ = old_image.rpartition(":")
+    new_image = f"{base_image}:{new_tag}"
+
+    if old_image != new_image:
+        print(f"[devcontainer.json] image updated: {old_image} → {new_image}")
+        data["image"] = new_image
+
+
 def bump_devcontainer_version(version: str) -> None:
     """
-    Update the version for the devcontainer.
+    Update version-related fields in devcontainer.json.
 
-    If the version is "dev", it transforms the current version to "<base>-dev.1"
-    and sets openfactory-version.default to "main". Otherwise, it sets the version
-    and default tag based on the semantic version provided.
+    This includes:
+    - Updating the base image tag
+    - Updating OpenFactory feature image tags
+
+    If the version is "dev":
+        • Sets image and feature tags to "dev"
+
+    Otherwise:
+        • Sets the image tag using the PEP 440 version (prefixed with "v")
+        • Sets feature tags using semver-compatible format
 
     Args:
         version (str): The new version string, e.g., "0.4.0" or the special keyword "dev".
@@ -193,6 +243,8 @@ def bump_devcontainer_version(version: str) -> None:
 
     with json_path.open("r", encoding="utf-8") as f:
         data = json.load(f)
+
+    update_devcontainer_image(data, version)
 
     if "features" not in data:
         print("ERROR: 'features' field not found in devcontainer.json.")
