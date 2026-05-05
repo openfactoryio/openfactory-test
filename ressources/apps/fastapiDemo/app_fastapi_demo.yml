@@ -4,7 +4,7 @@
 # Environment variables:
 #
 # Optional:
-#   DEMO_FASTAPI_APP_LOG_LEVEL       Log level (default: INFO)
+#   DEMO_FASTAPI_APP_LOG_LEVEL       Log level (default: DEBUG)
 #
 # ---------------------------------------------------------------------------------------
 

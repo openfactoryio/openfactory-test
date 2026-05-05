@@ -7,7 +7,7 @@
 #   NFS_SERVER               nfs server for storage
 #
 # Optional:
-#   DEMO_APP_LOG_LEVEL       Log level (default: INFO)
+#   DEMO_APP_LOG_LEVEL       Log level (default: DEBUG)
 #
 # ---------------------------------------------------------------------------------------
 
