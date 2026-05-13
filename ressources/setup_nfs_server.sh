@@ -40,6 +40,10 @@ set -e
 NFS_CONTAINER_NAME=devcontainer-nfs
 NFS_VOLUME_NAME=devcontainer-nfsdata
 
+# UID/GID for NFS anon mapping
+NFS_UID=1200
+NFS_GID=1200
+
 echo "⚙️ Creating virtual NFS server..."
 
 # Create factory-net network if it doesn't exist
@@ -64,6 +68,8 @@ if ! docker ps -a --format '{{.Names}}' | grep -q "^${NFS_CONTAINER_NAME}$"; the
     --name ${NFS_CONTAINER_NAME} \
     --privileged \
     -e SHARED_DIRECTORY=/exports \
+    -e ANONUID=${NFS_UID} \
+    -e ANONGID=${NFS_GID} \
     -v ${NFS_VOLUME_NAME}:/exports \
     -p 111:111/tcp \
     -p 111:111/udp \
@@ -77,9 +83,12 @@ else
   docker start ${NFS_CONTAINER_NAME} >/dev/null 2>&1 || true
 fi
 
-# create mount point in server
+# Create mount point in server
 echo "📁 Creating NFS mountpoint in NFS server..."
-docker exec ${NFS_CONTAINER_NAME} mkdir -p /exports/home/ofa/nfsvolume
+docker exec ${NFS_CONTAINER_NAME} sh -c "\
+  mkdir -p /exports/home/ofa/nfsvolume/.mocked_nfs && \
+  chown -R ${NFS_UID}:${NFS_GID} /exports/home/ofa && \
+  chmod -R 755 /exports/home/ofa"
 
 # mount it like so
 # sudo mount -t nfs ${CONTAINER_IP}:/home/ofa/nfsvolume /workspaces/openfactory-test/nfs/
