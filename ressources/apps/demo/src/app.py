@@ -20,6 +20,10 @@ class DemoApp(OpenFactoryApp):
         super().__init__(ksqlClient=ksqlClient,
                          loglevel=loglevel)
 
+        # make a folder on the storage volume
+        OUTPUT_DIR = self.storage.root.joinpath('test_folder')
+        os.makedirs(OUTPUT_DIR, exist_ok=True)
+
         # subscribe to another Asset
         barcode_reader = Asset('VIRTUAL-BARCODE-READER', ksqlClient=ksqlClient)
         barcode_reader.subscribe_to_attribute('last_code', self.on_new_barcode)
