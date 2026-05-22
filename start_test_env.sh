@@ -15,4 +15,4 @@ docker compose -f /usr/local/share/openfactory-opcua/docker-compose.yml up -d
 ./build_apps.sh
 
 # Setup virtual NFS server
-./ressources/setup_nfs_server.sh
+openfactory-start-nfs
