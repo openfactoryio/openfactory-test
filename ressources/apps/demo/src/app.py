@@ -12,6 +12,7 @@ class DemoApp(OpenFactoryApp):
     y = SampleAttribute(value=0, tag="Position")
     speed = SampleAttribute(value=0, tag="FeedRate")
     barcode = EventAttribute(tag="Barcode")
+    file_error = EventAttribute(tag='FileError')
 
     def __init__(self,
                  ksqlClient: KSQLDBClient,
@@ -21,8 +22,12 @@ class DemoApp(OpenFactoryApp):
                          loglevel=loglevel)
 
         # make a folder on the storage volume
-        OUTPUT_DIR = self.storage['data'].root.joinpath('test_folder')
-        os.makedirs(OUTPUT_DIR, exist_ok=True)
+        OUTPUT_DIR = self.storage['data'].root.joinpath(f'test_folder_{self.asset_uuid}')
+        try:
+            os.makedirs(OUTPUT_DIR, exist_ok=True)
+        except OSError as e:
+            self.file_error = str(e)
+            self.logger.error(f"File system error: {e}")
 
         # subscribe to another Asset
         barcode_reader = Asset('VIRTUAL-BARCODE-READER', ksqlClient=ksqlClient)
