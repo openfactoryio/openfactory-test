@@ -2,7 +2,7 @@
   "name": "OpenFactory-Test - Minimal Dev Container to test OpenFactory release",
   "image": "ghcr.io/openfactoryio/devcontainer-py3.14:v0.6.0rc1",
   "features": {
-    "ghcr.io/devcontainers/features/docker-in-docker:2.16.1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:3.0.1": {},
     "ghcr.io/openfactoryio/openfactory-sdk/infra:0.6.0-rc.1": {},
     "ghcr.io/openfactoryio/openfactory-sdk/opcua-connector:0.6.0-rc.1": {}
   },
