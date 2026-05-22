@@ -1,0 +1,23 @@
+# ---------------------------------------------------------------------------------------
+# 🏭 OpenFactory configuration file for DEMO_FLASK_APP
+# ---------------------------------------------------------------------------------------
+# Environment variables:
+#
+# Optional:
+#   DEMO_FLASK_APP_LOG_LEVEL       Log level (default: DEBUG)
+#
+# ---------------------------------------------------------------------------------------
+
+apps:
+
+  demo-flask-app:
+    uuid: DEMO-FLASK-APP
+    image: demo-flask-app
+    environment:
+      - LOG_LEVEL=${DEMO_FLASK_APP_LOG_LEVEL:-DEBUG}
+    routing:
+      expose: true
+      port: 5000
+      hostname: demo-flask-app
+    networks:
+      - factory-net

@@ -9,3 +9,8 @@ cd /workspaces/openfactory-test
 cd ressources/apps/fastapiDemo
 docker build --build-arg OFA_VERSION="$OPENFACTORY_VERSION" -t demo-fastapi-app -f Dockerfile .
 cd /workspaces/openfactory-test
+
+# Build demo-flask-app
+cd ressources/apps/flaskDemo
+docker build --build-arg OFA_VERSION="$OPENFACTORY_VERSION" -t demo-flask-app -f Dockerfile .
+cd /workspaces/openfactory-test
