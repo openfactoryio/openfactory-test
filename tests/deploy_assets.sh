@@ -3,6 +3,7 @@
 # Deploy Assets for tests
 ofa apps up /workspaces/openfactory-test/ressources/apps/demo
 ofa apps up /workspaces/openfactory-test/ressources/apps/fastapiDemo
+ofa apps up /workspaces/openfactory-test/ressources/apps/flaskDemo
 ofa device up /workspaces/openfactory-test/ressources/devices
 
 sleep 2
