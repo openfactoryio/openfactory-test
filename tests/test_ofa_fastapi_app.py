@@ -2,7 +2,7 @@ import unittest
 import requests
 
 
-BASE_URL = "http://demo-fastapi-app-demo.openfactory.local"
+BASE_URL = "http://demo-fastapi-app.openfactory.local"
 
 
 class TestFastAPIEndpoints(unittest.TestCase):
@@ -12,6 +12,7 @@ class TestFastAPIEndpoints(unittest.TestCase):
 
     def test_root_endpoint(self):
         response = requests.get(f"{BASE_URL}/")
+        print(response.content)
 
         self.assertEqual(response.status_code, 200)
 
