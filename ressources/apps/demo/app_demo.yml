@@ -16,22 +16,26 @@ apps:
   demo-app:
     uuid: DEMO-APP
     image: demo-app
+    runtime_uid: ${NFS_GID}
+    runtime_gid: ${NFS_UID}
+
     storage:
       data:
         type: nfs
         server: ${CONTAINER_IP}
-        remote_path: /home/ofa/nfsvolume
+        remote_path: ${NFS_MOUNTPOINT}
         mount_point: /mnt
         mount_options:
           - rw
+  
     environment:
       - LOG_LEVEL=${DEMO_APP_LOG_LEVEL:-DEBUG}
+
     networks:
       - factory-net
 
     deploy:
       replicas: 1
-
       resources:
         reservations:
           cpus: 0.25
@@ -39,3 +43,24 @@ apps:
         limits:
           cpus: 0.5
           memory: "1Gi"
+
+  demo-app2:
+    uuid: DEMO-APP2
+    image: demo-app
+    runtime_uid: ${NFS_GID}
+    runtime_gid: ${NFS_UID}
+
+    storage:
+      data:
+        type: nfs
+        server: ${CONTAINER_IP}
+        remote_path: ${NFS_MOUNTPOINT}
+        mount_point: /mnt
+        mount_options:
+          - ro
+  
+    environment:
+      - LOG_LEVEL=${DEMO_APP_LOG_LEVEL:-DEBUG}
+
+    networks:
+      - factory-net
