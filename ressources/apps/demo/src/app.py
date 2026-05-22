@@ -21,7 +21,7 @@ class DemoApp(OpenFactoryApp):
                          loglevel=loglevel)
 
         # make a folder on the storage volume
-        OUTPUT_DIR = self.storage.root.joinpath('test_folder')
+        OUTPUT_DIR = self.storage['data'].root.joinpath('test_folder')
         os.makedirs(OUTPUT_DIR, exist_ok=True)
 
         # subscribe to another Asset

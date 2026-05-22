@@ -17,12 +17,13 @@ apps:
     uuid: DEMO-APP
     image: demo-app
     storage:
-      type: nfs
-      server: ${CONTAINER_IP}
-      remote_path: /home/ofa/nfsvolume
-      mount_point: /mnt
-      mount_options:
-        - rw
+      data:
+        type: nfs
+        server: ${CONTAINER_IP}
+        remote_path: /home/ofa/nfsvolume
+        mount_point: /mnt
+        mount_options:
+          - rw
     environment:
       - LOG_LEVEL=${DEMO_APP_LOG_LEVEL:-DEBUG}
     networks:
