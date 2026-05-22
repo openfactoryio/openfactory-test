@@ -5,10 +5,10 @@
 
 # Remove virtual NFS server
 echo "🛑 Removing virtual NFS server"
-docker rm -f devcontainer-nfs
-docker volume rm devcontainer-nfsdata
+openfactory-stop-nfs
 
-# Remove OPC UA connectors
+# Remove OPC UA connector
+echo "🛑 Removing OPC UA connector"
 docker compose -f /usr/local/share/openfactory-opcua/docker-compose.yml down
 
 # Teardown infrastructure

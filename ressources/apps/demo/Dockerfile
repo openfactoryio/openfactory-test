@@ -25,12 +25,12 @@ RUN apt-get update && apt-get install -y git \
 # Set working directory
 WORKDIR /app
 
-# Copy application code
-COPY . .
-
 # Install dependencies
 RUN pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir git+https://github.com/openfactoryio/openfactory-core.git@${OFA_VERSION}
+    && pip install git+https://github.com/openfactoryio/openfactory-core.git@${OFA_VERSION}
+
+# Copy application code
+COPY . .
 
 # Change ownership to the non-root user
 RUN chown -R $UNAME:$UNAME /app
