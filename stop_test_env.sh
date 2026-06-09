@@ -9,7 +9,7 @@ openfactory-stop-nfs
 
 # Remove OPC UA connector
 echo "🛑 Removing OPC UA connector"
-docker compose -f /usr/local/share/openfactory-opcua/docker-compose.yml down
+ofa apps down /usr/local/share/openfactory-connectors/app_opcua_connector.yml
 
 # Teardown infrastructure
 /usr/local/bin/teardown.sh

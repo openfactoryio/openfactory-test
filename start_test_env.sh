@@ -9,7 +9,7 @@ docker run -d -p 4841:4840 --name virtual-opcua-barcode-reader ghcr.io/openfacto
 /usr/local/bin/spinup.sh
 
 # Setup OPC UA connectors
-docker compose -f /usr/local/share/openfactory-opcua/docker-compose.yml up -d
+ofa apps up /usr/local/share/openfactory-connectors/app_opcua_connector.yml
 
 # Build apps
 ./build_apps.sh
