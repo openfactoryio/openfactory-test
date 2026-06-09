@@ -19,3 +19,4 @@ ofa apps down /usr/local/share/openfactory-connectors/app_shdr_connector.yml
 # Remove virtual devices
 echo "🛑 Removing virtual sensors"
 docker rm -f virtual-opcua-sensor virtual-opcua-barcode-reader
+docker rm -f virtual-shdr-sensor
