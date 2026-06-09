@@ -1,0 +1,21 @@
+# ---------------------------------------------------------------------------------------
+# 🏭 OpenFactory Device Configuration File
+#
+# To be used in the Dev Container of this repo
+# ---------------------------------------------------------------------------------------
+
+devices:
+
+  shdr_sensor:
+    uuid: VIRTUAL-SHDR-SENS
+    connector:
+      type: shdr
+      host: ${CONTAINER_IP}
+      port: 7878
+      data:
+        Temp:
+          tag: Temperature
+          type: Samples
+        humi:
+          tag: Humidity
+          type: Samples
