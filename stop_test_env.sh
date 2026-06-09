@@ -7,9 +7,11 @@
 echo "🛑 Removing virtual NFS server"
 openfactory-stop-nfs
 
-# Remove OPC UA connector
+# Remove connectors
 echo "🛑 Removing OPC UA connector"
 ofa apps down /usr/local/share/openfactory-connectors/app_opcua_connector.yml
+echo "🛑 Removing SHDR connector"
+ofa apps down /usr/local/share/openfactory-connectors/app_shdr_connector.yml
 
 # Teardown infrastructure
 /usr/local/bin/teardown.sh
