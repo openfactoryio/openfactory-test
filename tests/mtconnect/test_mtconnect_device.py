@@ -31,5 +31,5 @@ class TestMTConnectDevice(TestCase):
     def test_temperature(self):
         """ Test Temp attribute """
         self.assertNotEqual(self.device.Temp.value, 'UNAVAILABLE')
-        self.assertNotEqual(self.device.Temp.tag, 'Temperature')
-        self.assertNotEqual(self.device.Temp.type, 'Sample')
+        self.assertEqual(self.device.Temp.tag, '{urn:mtconnect.org:MTConnectStreams:2.2}Temperature')
+        self.assertEqual(self.device.Temp.type, 'Samples')
