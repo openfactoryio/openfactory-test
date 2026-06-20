@@ -1,11 +1,11 @@
 {
   "name": "OpenFactory-Test - Minimal Dev Container to test OpenFactory release",
-  "image": "ghcr.io/openfactoryio/devcontainer-py3.14:v0.6.1",
+  "image": "ghcr.io/openfactoryio/devcontainer-py3.14:v0.6.2rc1",
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:3.0.1": {},
-    "ghcr.io/openfactoryio/openfactory-sdk/infra:0.6.1": {},
-    "ghcr.io/openfactoryio/openfactory-sdk/connectors:0.6.1": {},
-    "ghcr.io/openfactoryio/openfactory-sdk/nfs-server:0.6.1": {
+    "ghcr.io/openfactoryio/openfactory-sdk/infra:0.6.2-rc.1": {},
+    "ghcr.io/openfactoryio/openfactory-sdk/connectors:0.6.2-rc.1": {},
+    "ghcr.io/openfactoryio/openfactory-sdk/nfs-server:0.6.2-rc.1": {
       "nfs-mountpoint": "/home/ofa",
       "nfs-uid": "1200",
       "nfs-gid": "1200"
