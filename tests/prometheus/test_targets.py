@@ -14,6 +14,7 @@ class TestPrometheusTargets(unittest.TestCase):
         "shdr-coordinator:4000",
         "shdr-gateway-1:4000",
         "shdr-gateway-2:4000",
+        "demo-fastapi-app:5000",
     }
 
     def test_openfactory_targets_are_up(self):
