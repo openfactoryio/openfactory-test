@@ -22,6 +22,9 @@ class DemoFastAPIApp(OpenFactoryFastAPIApp):
         self.api.include_router(root.router)
         self.api.include_router(move.router)
 
+        # expose metrics
+        self.expose_metrics()
+
     @ofa_method(description="Move axis")
     def move_axis(
         self,
