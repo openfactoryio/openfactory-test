@@ -1,9 +1,9 @@
 [project]
 name = "openfactory-test"
-version = "0.6.5rc2"
+version = "0.6.5rc3"
 description = "Minimal repo to verify if a release was succesfull"
 requires-python = ">=3.12"
-dependencies = ["OpenFactory @ git+https://github.com/openfactoryio/openfactory-core.git@v0.6.5rc2"]
+dependencies = ["OpenFactory @ git+https://github.com/openfactoryio/openfactory-core.git@v0.6.5rc3"]
 
 [project.optional-dependencies]
 dev = [
