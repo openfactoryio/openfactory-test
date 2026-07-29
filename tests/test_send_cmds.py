@@ -77,7 +77,7 @@ class TestSendCmds(TestCase):
         self.barcode_reader.SetManualMode(sender_uuid='TEST')
 
         # Wait until the asset reports MANUAL mode
-        result = self.barcode_reader.wait_until("simulation_mode", "MANUAL", 5, use_ksqlDB=True)
+        result = self.barcode_reader.wait_until("simulation_mode", "MANUAL", timeout=5, use_ksqlDB=True)
 
         self.assertTrue(
             result,
@@ -87,7 +87,7 @@ class TestSendCmds(TestCase):
         self.barcode_reader.GenerateCode(sender_uuid='TEST', Code='MANUAL-BARCODE')
 
         # Wait until the asset reports new barcode
-        result = self.barcode_reader.wait_until("last_code", "MANUAL-BARCODE", 5, use_ksqlDB=True)
+        result = self.barcode_reader.wait_until("last_code", "MANUAL-BARCODE", timeout=5, use_ksqlDB=True)
 
         self.assertTrue(
             result,

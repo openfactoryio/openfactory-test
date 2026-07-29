@@ -34,21 +34,21 @@ class TestAssetSubscription(TestCase):
 
         # Sets barcode reader to MANUAL mode and generate a specific code
         self.barcode_reader.SetManualMode(sender_uuid='TEST')
-        result = self.barcode_reader.wait_until("simulation_mode", "MANUAL", 5, use_ksqlDB=True)
+        result = self.barcode_reader.wait_until("simulation_mode", "MANUAL", timeout=5, use_ksqlDB=True)
         self.assertTrue(
             result,
             "Barcode reader did not switch to MANUAL mode within 5 seconds"
         )
 
         self.barcode_reader.GenerateCode(sender_uuid='TEST', Code='TEST-BARCODE')
-        result = self.barcode_reader.wait_until("last_code", "TEST-BARCODE", 5, use_ksqlDB=True)
+        result = self.barcode_reader.wait_until("last_code", "TEST-BARCODE", timeout=5, use_ksqlDB=True)
         self.assertTrue(
             result,
             "Barcode reader did not report new barcode within 5 seconds"
         )
 
         # Test that DEMO-APP did correctly get generated barcode via its subscription
-        result = self.app.wait_until("barcode", "TEST-BARCODE", 5, use_ksqlDB=True)
+        result = self.app.wait_until("barcode", "TEST-BARCODE", timeout=5, use_ksqlDB=True)
         self.assertTrue(
             result,
             "DEMO-APP did not report new barcode within 5 seconds"

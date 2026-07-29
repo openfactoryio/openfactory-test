@@ -30,7 +30,7 @@ class TestSetAttributes(TestCase):
         self.temp_sensor.temp_unit = 'K'
 
         # Wait until the asset reports new temperature unit
-        result = self.temp_sensor.wait_until("temp_unit", "K", 5)
+        result = self.temp_sensor.wait_until("temp_unit", "K", timeout=5)
 
         self.assertTrue(
             result,
@@ -40,7 +40,7 @@ class TestSetAttributes(TestCase):
         self.temp_sensor.temp_unit = 'C'
 
         # Wait until the asset reports new temperature unit
-        result = self.temp_sensor.wait_until("temp_unit", "C", 5)
+        result = self.temp_sensor.wait_until("temp_unit", "C", timeout=5)
 
         self.assertTrue(
             result,
